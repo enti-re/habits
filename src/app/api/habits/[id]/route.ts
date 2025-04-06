@@ -1,16 +1,36 @@
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
+import { promises as fs } from 'fs';
+import path from 'path';
 import type { Habit } from '@/types/habit';
 
-const HABITS_KEY = 'habits';
+const DATA_DIR = path.join(process.cwd(), 'data');
+const HABITS_FILE = path.join(DATA_DIR, 'habits.json');
+
+async function ensureDataDir() {
+  try {
+    await fs.access(DATA_DIR);
+  } catch {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+  }
+}
 
 async function getHabits(): Promise<Habit[]> {
-  const habits = await kv.get<Habit[]>(HABITS_KEY);
-  return habits || [];
+  try {
+    await ensureDataDir();
+    const data = await fs.readFile(HABITS_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return [];
+    }
+    console.error('Error reading habits:', error);
+    return [];
+  }
 }
 
 async function saveHabits(habits: Habit[]) {
-  await kv.set(HABITS_KEY, habits);
+  await ensureDataDir();
+  await fs.writeFile(HABITS_FILE, JSON.stringify(habits, null, 2));
 }
 
 export async function GET(
