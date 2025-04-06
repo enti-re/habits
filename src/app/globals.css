@@ -1,0 +1,36 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --background: 255, 255, 255;
+  --foreground: 0, 0, 0;
+  --muted: 229, 231, 235;
+  --muted-foreground: 107, 114, 128;
+  --accent: 243, 244, 246;
+  --accent-foreground: 17, 24, 39;
+  --checkbox-bg: #000000;
+  --checkbox-border: #000000;
+}
+
+.dark {
+  --background: 0, 0, 10;
+  --foreground: 255, 255, 255;
+  --muted: 28, 28, 28;
+  --muted-foreground: 156, 163, 175;
+  --accent: 28, 28, 28;
+  --accent-foreground: 229, 229, 229;
+  --checkbox-bg: #ffffff;
+  --checkbox-border: #ffffff;
+}
+
+body {
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
+}
+
+@layer utilities {
+  .grid-cols-53 {
+    grid-template-columns: repeat(53, minmax(0, 1fr));
+  }
+}
