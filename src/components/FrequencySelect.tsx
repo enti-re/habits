@@ -9,26 +9,41 @@ interface FrequencySelectProps {
   disabled?: boolean;
 }
 
-export default function FrequencySelect({ value, defaultValue, onChange, disabled }: FrequencySelectProps) {
-  const [customNumber, setCustomNumber] = useState('');
-  const [customPeriod, setCustomPeriod] = useState('month');
-  const [selectedOption, setSelectedOption] = useState(value || defaultValue || 'daily');
+interface FrequencyOption {
+  value: string;
+  label: string;
+  description: string;
+}
+
+const frequencyOptions: FrequencyOption[] = [
+  { value: 'daily', label: 'Daily', description: 'Every day' },
+  { value: 'weekly', label: 'Weekly', description: 'Once a week' },
+  { value: '3 days per week', label: '3 days / week', description: 'Three times a week' },
+  { value: '5 days per week', label: '5 days / week', description: 'Five times a week' },
+  { value: 'custom', label: 'Custom', description: 'Set your own frequency' },
+];
+
+export default function FrequencySelect({ value, defaultValue = 'daily', onChange, disabled }: FrequencySelectProps) {
+  const [selectedOption, setSelectedOption] = useState(value || defaultValue);
+  const [customNumber, setCustomNumber] = useState('1');
+  const [customPeriod, setCustomPeriod] = useState('week');
 
   useEffect(() => {
     if (value?.includes('days per')) {
       const [number, , , period] = value.split(' ');
-      if (!['daily', 'weekly'].includes(value)) {
-        setSelectedOption('custom');
-        setCustomNumber(number);
-        setCustomPeriod(period);
-      }
+      setSelectedOption('custom');
+      setCustomNumber(number);
+      setCustomPeriod(period);
     }
   }, [value]);
 
   const handleCustomChange = (number: string, period: string) => {
-    setCustomNumber(number);
-    setCustomPeriod(period);
-    onChange?.(`${number} days per ${period}`);
+    if (number && Number(number) > 0) {
+      setCustomNumber(number);
+      setCustomPeriod(period);
+      const newValue = `${number} days per ${period}`;
+      onChange?.(newValue);
+    }
   };
 
   const handleOptionChange = (value: string) => {
@@ -38,74 +53,29 @@ export default function FrequencySelect({ value, defaultValue, onChange, disable
     }
   };
 
+  const currentValue = selectedOption === 'custom' 
+    ? `${customNumber} days per ${customPeriod}` 
+    : selectedOption;
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          onClick={() => handleOptionChange('daily')}
-          disabled={disabled}
-          className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-            disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-          } ${
-            selectedOption === 'daily' ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
-          }`}
-        >
-          <div className="font-medium mb-1">Daily</div>
-          <div className="text-muted-foreground text-xs">Every day</div>
-        </button>
-        <button
-          type="button"
-          onClick={() => handleOptionChange('weekly')}
-          disabled={disabled}
-          className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-            disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-          } ${
-            selectedOption === 'weekly' ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
-          }`}
-        >
-          <div className="font-medium mb-1">Weekly</div>
-          <div className="text-muted-foreground text-xs">Once a week</div>
-        </button>
-        <button
-          type="button"
-          onClick={() => handleOptionChange('3 days per week')}
-          disabled={disabled}
-          className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-            disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-          } ${
-            selectedOption === '3 days per week' ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
-          }`}
-        >
-          <div className="font-medium mb-1">3 days / week</div>
-          <div className="text-muted-foreground text-xs">Three times a week</div>
-        </button>
-        <button
-          type="button"
-          onClick={() => handleOptionChange('5 days per week')}
-          disabled={disabled}
-          className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-            disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-          } ${
-            selectedOption === '5 days per week' ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
-          }`}
-        >
-          <div className="font-medium mb-1">5 days / week</div>
-          <div className="text-muted-foreground text-xs">Five times a week</div>
-        </button>
-        <button
-          type="button"
-          onClick={() => handleOptionChange('custom')}
-          disabled={disabled}
-          className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-            disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-          } col-span-2 ${
-            selectedOption === 'custom' ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
-          }`}
-        >
-          <div className="font-medium mb-1">Custom</div>
-          <div className="text-muted-foreground text-xs">Set your own frequency</div>
-        </button>
+        {frequencyOptions.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            onClick={() => handleOptionChange(option.value)}
+            disabled={disabled}
+            className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
+              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+            } ${
+              selectedOption === option.value ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
+            } ${option.value === 'custom' ? 'col-span-2' : ''}`}
+          >
+            <div className="font-medium mb-1">{option.label}</div>
+            <div className="text-muted-foreground text-xs">{option.description}</div>
+          </button>
+        ))}
       </div>
 
       {selectedOption === 'custom' && (
@@ -146,7 +116,7 @@ export default function FrequencySelect({ value, defaultValue, onChange, disable
       <input
         type="hidden"
         name="frequency"
-        value={selectedOption === 'custom' ? `${customNumber} days per ${customPeriod}` : selectedOption}
+        value={currentValue}
       />
     </div>
   );
