@@ -81,10 +81,10 @@ export function HabitDetail({ params }: { params: { id: string } }) {
     return (
       <div className="max-w-4xl mx-auto py-8 px-4">
         <div className="text-center">
-          <h1 className="text-2xl font-medium mb-4">Habit not found</h1>
+          <h1 className="text-2xl font-medium mb-4 text-foreground">Habit not found</h1>
           <Link
             href="/"
-            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            className="text-accent-foreground hover:text-accent-foreground dark:text-accent-foreground dark:hover:text-accent-foreground"
           >
             Go back home
           </Link>
@@ -99,7 +99,7 @@ export function HabitDetail({ params }: { params: { id: string } }) {
         <div className="flex items-center gap-2 mb-6 text-sm">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -120,11 +120,11 @@ export function HabitDetail({ params }: { params: { id: string } }) {
 
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-medium mb-2">{habit.name}</h1>
+            <h1 className="text-2xl font-medium mb-2 text-foreground">{habit.name}</h1>
             {habit.description && (
               <p className="text-muted-foreground mb-4">{habit.description}</p>
             )}
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="text-sm text-muted-foreground">
               <p>Created on {format(new Date(habit.createdAt), 'MMMM d, yyyy')}</p>
               <p>Frequency: {habit.frequency}</p>
               <p>

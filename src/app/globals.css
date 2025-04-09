@@ -4,24 +4,24 @@
 
 :root {
   --background: 255, 255, 255;
-  --foreground: 0, 0, 0;
-  --muted: 229, 231, 235;
-  --muted-foreground: 107, 114, 128;
+  --foreground: 23, 23, 23;
+  --muted: 241, 242, 244;
+  --muted-foreground: 127, 134, 148;
   --accent: 243, 244, 246;
-  --accent-foreground: 17, 24, 39;
-  --checkbox-bg: #000000;
-  --checkbox-border: #000000;
+  --accent-foreground: 38, 38, 38;
+  --checkbox-bg: #171717;
+  --checkbox-border: #171717;
 }
 
 .dark {
-  --background: 0, 0, 10;
-  --foreground: 255, 255, 255;
-  --muted: 28, 28, 28;
-  --muted-foreground: 156, 163, 175;
-  --accent: 28, 28, 28;
-  --accent-foreground: 229, 229, 229;
-  --checkbox-bg: #ffffff;
-  --checkbox-border: #ffffff;
+  --background: 18, 18, 23;
+  --foreground: 212, 212, 216;
+  --muted: 38, 38, 43;
+  --muted-foreground: 161, 168, 180;
+  --accent: 38, 38, 43;
+  --accent-foreground: 191, 191, 196;
+  --checkbox-bg: #D4D4D8;
+  --checkbox-border: #D4D4D8;
 }
 
 body {

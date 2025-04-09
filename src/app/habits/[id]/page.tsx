@@ -148,7 +148,7 @@ export default function HabitDetails({ params }: { params: { id: string } }) {
         <div className="flex items-center justify-between mb-6">
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gray-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent-foreground transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +169,7 @@ export default function HabitDetails({ params }: { params: { id: string } }) {
           <div className="flex items-center gap-3">
             <Link
               href={`/habits/${habit.id}/edit`}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-accent-foreground transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -214,14 +214,14 @@ export default function HabitDetails({ params }: { params: { id: string } }) {
         </div>
 
         <div className="flex items-baseline gap-4 mb-6">
-          <h1 className="text-2xl font-medium text-gray-900 dark:text-white">{habit.name}</h1>
+          <h1 className="text-2xl font-medium text-foreground">{habit.name}</h1>
         </div>
 
         <div className="space-y-4 text-muted-foreground">
           {habit.description && <p>{habit.description}</p>}
           <div>
-            <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Frequency</div>
-            <div className="px-4 py-3 border rounded-lg text-sm bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
+            <div className="text-sm font-medium text-muted-foreground mb-1">Frequency</div>
+            <div className="px-4 py-3 border rounded-lg text-sm bg-muted text-muted-foreground dark:bg-accent dark:border-accent">
               {habit.frequency === 'daily' && 'Every day'}
               {habit.frequency === 'weekly' && 'Once a week'}
               {habit.frequency === '3 days per week' && 'Three times a week'}
@@ -249,18 +249,18 @@ export default function HabitDetails({ params }: { params: { id: string } }) {
 
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Year Overview</h2>
+          <h2 className="text-lg font-medium text-foreground">Year Overview</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setYear(year - 1)}
-              className="px-3 py-1 text-sm border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="px-3 py-1 text-sm border rounded hover:bg-accent dark:hover:bg-accent transition-colors"
             >
               ←
             </button>
-            <span className="text-sm font-medium text-gray-900 dark:text-white">{year}</span>
+            <span className="text-sm font-medium text-foreground">{year}</span>
             <button
               onClick={() => setYear(year + 1)}
-              className="px-3 py-1 text-sm border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="px-3 py-1 text-sm border rounded hover:bg-accent dark:hover:bg-accent transition-colors"
               disabled={year >= new Date().getFullYear()}
             >
               →

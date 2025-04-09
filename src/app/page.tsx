@@ -97,14 +97,14 @@ export default function Home() {
     <main className="min-h-screen p-4 md:p-8 max-w-4xl mx-auto">
       <header className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-medium text-gray-900 dark:text-white">habits</h1>
+          <h1 className="text-2xl font-medium text-foreground">habits</h1>
           <p className="text-muted-foreground text-sm mt-1">track your progress</p>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link
             href="/habits/new"
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-foreground text-background dark:bg-background dark:text-foreground rounded-lg hover:bg-accent dark:hover:bg-accent transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ export default function Home() {
           <p className="text-muted-foreground mb-4">No habits yet. Start by creating a new habit!</p>
           <Link
             href="/habits/new"
-            className="inline-flex items-center gap-2 text-sm text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-accent-foreground transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ export default function Home() {
                       href={`/habits/${habit.id}`}
                       className="hover:opacity-70 transition-opacity"
                     >
-                      <h2 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                      <h2 className="text-lg font-medium text-foreground truncate">
                         {habit.name}
                       </h2>
                     </Link>

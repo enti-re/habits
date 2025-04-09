@@ -62,7 +62,7 @@ export default function NewHabit() {
         <div className="flex items-center gap-2 mb-6 text-sm">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-accent-foreground transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ export default function NewHabit() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-2">
+          <label htmlFor="name" className="block text-sm text-muted-foreground mb-2">
             Name
           </label>
           <input
@@ -93,24 +93,24 @@ export default function NewHabit() {
             id="name"
             name="name"
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5"
+            className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium mb-2">
+          <label htmlFor="description" className="block text-sm text-muted-foreground mb-2">
             Description (optional)
           </label>
           <textarea
             id="description"
             name="description"
             rows={3}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5"
+            className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-muted-foreground mb-2">
             Frequency
           </label>
           <FrequencySelect 
@@ -129,14 +129,14 @@ export default function NewHabit() {
         <div className="flex justify-end gap-3">
           <Link
             href="/"
-            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-4 py-2 text-sm text-muted-foreground hover:text-accent-foreground transition-colors"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={isLoading}
-            className="px-4 py-2 text-sm bg-black text-white rounded-lg hover:bg-black/90 transition-colors disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 text-sm bg-foreground text-background rounded-lg hover:bg-accent transition-colors disabled:opacity-50 flex items-center gap-2"
           >
             {isLoading ? (
               <>

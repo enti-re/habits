@@ -67,13 +67,15 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
             onClick={() => handleOptionChange(option.value)}
             disabled={disabled}
             className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-muted hover:border-foreground hover:text-foreground'
             } ${
-              selectedOption === option.value ? 'border-gray-900 dark:border-white' : 'border-gray-200 dark:border-gray-700'
+              selectedOption === option.value 
+                ? 'bg-foreground border-foreground text-background' 
+                : 'border-muted text-muted-foreground'
             } ${option.value === 'custom' ? 'col-span-2' : ''}`}
           >
-            <div className="font-medium mb-1">{option.label}</div>
-            <div className="text-muted-foreground text-xs">{option.description}</div>
+            <div className={`font-medium mb-1 ${selectedOption === option.value ? 'text-background' : ''}`}>{option.label}</div>
+            <div className={`text-xs ${selectedOption === option.value ? 'text-background/80' : 'text-muted-foreground'}`}>{option.description}</div>
           </button>
         ))}
       </div>
@@ -81,7 +83,7 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
       {selectedOption === 'custom' && (
         <div className="flex gap-3 items-end">
           <div className="flex-1">
-            <label htmlFor="customNumber" className="block text-sm font-medium mb-2">
+            <label htmlFor="customNumber" className="block text-sm text-muted-foreground mb-2">
               Number of days
             </label>
             <input
@@ -92,11 +94,11 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
               value={customNumber}
               onChange={(e) => handleCustomChange(e.target.value, customPeriod)}
               disabled={disabled}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 dark:bg-gray-900 dark:border-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
             />
           </div>
           <div className="flex-1">
-            <label htmlFor="customPeriod" className="block text-sm font-medium mb-2">
+            <label htmlFor="customPeriod" className="block text-sm text-muted-foreground mb-2">
               Period
             </label>
             <select
@@ -104,7 +106,7 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
               value={customPeriod}
               onChange={(e) => handleCustomChange(customNumber, e.target.value)}
               disabled={disabled}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 dark:bg-gray-900 dark:border-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="week">per week</option>
               <option value="month">per month</option>
