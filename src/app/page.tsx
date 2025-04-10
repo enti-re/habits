@@ -194,7 +194,7 @@ export default function Home() {
                         onClick={() => toggleHabit(habit.id, date.dateString)}
                         className={`w-5 h-5 rounded transition-colors flex items-center justify-center ${
                           completed
-                            ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900' 
+                            ? 'bg-gray-900 dark:bg-green text-white dark:text-gray-900' 
                             : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
                         } ${date.isToday ? 'ring-1 ring-gray-400 dark:ring-gray-600' : ''}`}
                         disabled={isUpdating === habit.id}

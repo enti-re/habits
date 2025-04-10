@@ -1,6 +1,6 @@
 'use client';
 
-import { format, startOfYear, eachDayOfInterval, endOfYear, isSameDay } from 'date-fns';
+import { format, startOfYear, eachDayOfInterval, endOfYear } from 'date-fns';
 
 interface YearlyOverviewProps {
   completedDates: string[];
@@ -29,9 +29,8 @@ export function YearlyOverview({ completedDates }: YearlyOverviewProps) {
             </div>
             <div className="grid grid-cols-1 gap-px">
               {month.map(day => {
-                const isCompleted = completedDates.some(date =>
-                  isSameDay(new Date(date), day)
-                );
+                const dateString = format(day, 'yyyy-MM-dd');
+                const isCompleted = completedDates.includes(dateString);
 
                 return (
                   <div

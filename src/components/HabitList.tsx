@@ -216,12 +216,13 @@ export default function HabitList() {
                   <span className="text-xs text-muted-foreground">{getDayLabel(date)}</span>
                   <div
                     style={{
-                      backgroundColor: isCompletedOnDate(habit, date) ? 'var(--checkbox-bg)' : 'transparent',
-                      borderColor: isCompletedOnDate(habit, date) ? 'var(--checkbox-border)' : 'rgba(var(--checkbox-border), 0.4)'
+                      backgroundColor: 'transparent',
+                      borderColor: isCompletedOnDate(habit, date) ? 'var(--checkbox-bg)' : 'var(--checkbox-border)'
                     }}
                     className={`
-                      w-5 h-5 rounded-full transition-all duration-200 border
-                      hover:border-[color:var(--checkbox-border)]
+                      w-4 h-4 rounded border-2 transition-all duration-200 cursor-pointer
+                      hover:border-[color:var(--checkbox-bg)]
+                      ${isCompletedOnDate(habit, date) ? 'after:content-[""] after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-2 after:h-2 after:bg-[color:var(--checkbox-bg)] after:rounded-[1px]' : ''}
                     `}
                   />
                 </div>

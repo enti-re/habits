@@ -67,10 +67,10 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
             onClick={() => handleOptionChange(option.value)}
             disabled={disabled}
             className={`px-4 py-3 border rounded-lg text-sm text-left transition-colors ${
-              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-muted hover:border-foreground hover:text-foreground'
+              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-800 hover:text-white'
             } ${
               selectedOption === option.value 
-                ? 'bg-foreground border-foreground text-background' 
+                ? 'bg-gray-800 text-white dark:bg-white dark:text-black border-foreground text-background hover:bg-[rgb(var(--reverse-foreground))] hover:text-background' 
                 : 'border-muted text-muted-foreground'
             } ${option.value === 'custom' ? 'col-span-2' : ''}`}
           >

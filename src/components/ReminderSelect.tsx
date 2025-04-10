@@ -30,7 +30,7 @@ export default function ReminderSelect({ defaultEnabled = false, defaultTime = '
           checked={reminder}
           onChange={(e) => setReminder(e.target.checked)}
           disabled={disabled}
-          className="h-4 w-4 rounded border-gray-300 text-foreground focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
+          className="h-4 w-4 rounded border-muted focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
         />
         <label htmlFor="reminder" className="text-sm text-muted-foreground">
           Enable reminders

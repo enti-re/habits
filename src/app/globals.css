@@ -4,24 +4,28 @@
 
 :root {
   --background: 255, 255, 255;
-  --foreground: 23, 23, 23;
+  --foreground: 0, 0, 0;
+  --reverse-foreground: 255, 255, 255;
   --muted: 241, 242, 244;
   --muted-foreground: 127, 134, 148;
   --accent: 243, 244, 246;
-  --accent-foreground: 38, 38, 38;
-  --checkbox-bg: #171717;
-  --checkbox-border: #171717;
+  --accent-foreground: 0, 0, 0;
+  --checkbox-bg: #000000;
+  --checkbox-border: #000000;
+  --reverse-muted-foreground: 163, 163, 163
 }
 
 .dark {
-  --background: 18, 18, 23;
-  --foreground: 212, 212, 216;
-  --muted: 38, 38, 43;
-  --muted-foreground: 161, 168, 180;
-  --accent: 38, 38, 43;
-  --accent-foreground: 191, 191, 196;
-  --checkbox-bg: #D4D4D8;
-  --checkbox-border: #D4D4D8;
+  --background: 10, 10, 10;
+  --foreground: 255, 255, 255;
+  --reverse-foreground: 0, 0, 0;
+  --muted: 38, 38, 38;
+  --muted-foreground: 163, 163, 163;
+  --accent: 38, 38, 38;
+  --accent-foreground: 255, 255, 255;
+  --checkbox-bg: #FFFFFF;
+  --checkbox-border: #FFFFFF;
+  --reverse-muted-foreground: 127, 134, 148
 }
 
 body {
@@ -33,4 +37,45 @@ body {
   .grid-cols-53 {
     grid-template-columns: repeat(53, minmax(0, 1fr));
   }
+}
+
+/* Custom checkbox styles */
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 0.25rem;
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.23, 1);
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+input[type="checkbox"]:checked {
+  border-color: var(--checkbox-border);
+  background-color: transparent;
+}
+
+input[type="checkbox"]:checked::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--checkbox-bg);
+  transform: translate(-50%, -50%);
+  border-radius: 1px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.23, 1);
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--checkbox-bg);
+}
+
+input[type="checkbox"]:checked:hover {
+  border-color: var(--checkbox-bg);
 }
