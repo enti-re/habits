@@ -27,6 +27,7 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
   const [selectedOption, setSelectedOption] = useState(value || defaultValue);
   const [customNumber, setCustomNumber] = useState('1');
   const [customPeriod, setCustomPeriod] = useState('week');
+  const [inputValue, setInputValue] = useState('1');
 
   useEffect(() => {
     if (value?.includes('days per')) {
@@ -34,22 +35,41 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
       setSelectedOption('custom');
       setCustomNumber(number);
       setCustomPeriod(period);
+      setInputValue(number);
+    } else {
+      setSelectedOption(value || defaultValue);
+      setInputValue('1');
     }
-  }, [value]);
+  }, [value, defaultValue]);
 
   const handleCustomChange = (number: string, period: string) => {
-    if (number && Number(number) > 0) {
-      setCustomNumber(number);
-      setCustomPeriod(period);
-      const newValue = `${number} days per ${period}`;
+    const parsedNumber = number === '' ? '' : Math.max(1, Math.min(31, Number(number) || 1));
+    const validNumber = parsedNumber.toString();
+    
+    setCustomNumber(validNumber);
+    setCustomPeriod(period);
+    setInputValue(number); // Keep the input value as is while typing
+    
+    if (parsedNumber !== '') {
+      const newValue = `${validNumber} days per ${period}`;
       onChange?.(newValue);
     }
   };
 
   const handleOptionChange = (value: string) => {
     setSelectedOption(value);
-    if (value !== 'custom') {
+    if (value === 'custom') {
+      const newValue = `${customNumber} days per ${customPeriod}`;
+      onChange?.(newValue);
+    } else {
       onChange?.(value);
+    }
+  };
+
+  const handleInputBlur = () => {
+    if (inputValue === '') {
+      setInputValue('1');
+      handleCustomChange('1', customPeriod);
     }
   };
 
@@ -91,8 +111,15 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
               id="customNumber"
               min="1"
               max="31"
-              value={customNumber}
-              onChange={(e) => handleCustomChange(e.target.value, customPeriod)}
+              value={inputValue}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value === '' || /^\d*$/.test(value)) {
+                  setInputValue(value);
+                  handleCustomChange(value, customPeriod);
+                }
+              }}
+              onBlur={handleInputBlur}
               disabled={disabled}
               className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
             />
@@ -104,7 +131,7 @@ export default function FrequencySelect({ value, defaultValue = 'daily', onChang
             <select
               id="customPeriod"
               value={customPeriod}
-              onChange={(e) => handleCustomChange(customNumber, e.target.value)}
+              onChange={(e) => handleCustomChange(inputValue, e.target.value)}
               disabled={disabled}
               className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
             >

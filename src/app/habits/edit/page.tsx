@@ -106,6 +106,7 @@ export default function EditHabit() {
           <input
             type="text"
             id="name"
+            autoComplete='off'
             name="name"
             defaultValue={habit.name}
             required

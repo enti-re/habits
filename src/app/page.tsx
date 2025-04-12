@@ -104,7 +104,7 @@ export default function Home() {
           <ThemeToggle />
           <Link
             href="/habits/new"
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-foreground text-background dark:bg-background dark:text-foreground rounded-lg hover:bg-accent dark:hover:bg-accent transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-foreground text-background border dark:bg-background dark:text-foreground rounded-lg bg-gray-900 text-white hover:text-white border-gray-900 hover:text-gray-900 hover:bg-white dark:hover:bg-accent transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ export default function Home() {
                       href={`/habits/${habit.id}`}
                       className="hover:opacity-70 transition-opacity"
                     >
-                      <h2 className="text-lg font-medium text-foreground truncate">
+                      <h2 className="text-lg font-medium text-foreground truncate hover:underline">
                         {habit.name}
                       </h2>
                     </Link>
@@ -195,24 +195,25 @@ export default function Home() {
                         className={`w-5 h-5 rounded transition-colors flex items-center justify-center ${
                           completed
                             ? 'bg-gray-900 dark:bg-green text-white dark:text-gray-900' 
-                            : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                            : 'bg-gray-900'
                         } ${date.isToday ? 'ring-1 ring-gray-400 dark:ring-gray-600' : ''}`}
                         disabled={isUpdating === habit.id}
                         title={`${date.dayName} ${format(date.date, 'MMM d')} - ${completed ? 'Completed' : 'Not done'}`}
                       >
                         {completed && (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="w-3 h-3"
-                          >
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
+                         <svg
+                         xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         strokeWidth="4"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         color="white"
+                         className="w-3 h-3"
+                       >
+                         <polyline points="20 6 9 17 4 12" />
+                       </svg>
                         )}
                       </button>
                     );
