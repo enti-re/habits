@@ -42,17 +42,15 @@ export default function EditHabit() {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const updatedHabit: Habit = {
-      ...habit,
-      name: formData.get('name') as string,
-      description: formData.get('description') as string,
-      frequency: formData.get('frequency') as string,
-      reminder: formData.get('reminder') === 'on',
-      reminderTime: formData.get('reminderTime') as string,
-    };
 
     try {
-      updateHabit(updatedHabit);
+      updateHabit(habit.id, {
+        name: formData.get('name') as string,
+        description: formData.get('description') as string,
+        frequency: formData.get('frequency') as string,
+        reminder: formData.get('reminder') === 'on',
+        reminderTime: formData.get('reminderTime') as string,
+      });
       router.push(`/habits/detail?id=${habit.id}`);
     } catch (err) {
       setError('Failed to update habit');
@@ -106,11 +104,10 @@ export default function EditHabit() {
           <input
             type="text"
             id="name"
-            autoComplete='off'
             name="name"
-            defaultValue={habit.name}
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5"
+            autoComplete="off"
+            className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -153,7 +150,7 @@ export default function EditHabit() {
           <button
             type="submit"
             disabled={isSaving}
-            className="px-4 py-2 text-sm bg-black text-white rounded-lg hover:bg-black/90 transition-colors disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 text-sm rounded-lg bg-gray-900 text-white hover:text-gray-900 border hover:bg-white hover:border-gray-900 transition-colors disabled:opacity-50 flex items-center gap-2"
           >
             {isSaving ? (
               <>

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 interface FrequencySelectProps {
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string) => void; 
   disabled?: boolean;
 }
 

@@ -62,9 +62,9 @@ export default function ReminderSelect({ defaultEnabled = false, defaultTime = '
                 type="button"
                 onClick={() => setReminderTime(preset.time)}
                 disabled={disabled}
-                className={`px-3 py-1.5 text-sm border rounded-lg transition-colors ${
+                className={`px-3 py-1.5 text-sm border hover:bg-gray-900 hover:text-white rounded-lg transition-colors ${
                   reminderTime === preset.time 
-                    ? 'bg-foreground text-background border-foreground' 
+                    ? 'bg-gray-900 text-white  border-foreground' 
                     : 'border-muted text-muted-foreground hover:text-accent-foreground hover:border-accent-foreground'
                 }`}
               >

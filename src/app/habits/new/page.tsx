@@ -85,15 +85,16 @@ export default function NewHabit() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm text-muted-foreground mb-2">
+          <label htmlFor="name" className="block text-sm text-muted-foreground mb-2 ">
             Name
           </label>
           <input
             type="text"
             id="name"
+            autoComplete='off'
             name="name"
             required
-            className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-zinc-900 text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -105,7 +106,7 @@ export default function NewHabit() {
             id="description"
             name="description"
             rows={3}
-            className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-zinc-900 text-foreground border-muted focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -129,14 +130,14 @@ export default function NewHabit() {
         <div className="flex justify-end gap-3">
           <Link
             href="/"
-            className="px-4 py-2 text-sm text-muted-foreground hover:text-accent-foreground transition-colors"
+            className="px-4 py-2 text-sm text-muted-foreground rounded-lg hover:text-accent-foreground border hover:border-red-600 hover:text-red-600 transition-colors"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={isLoading}
-            className="px-4 py-2 text-sm bg-foreground text-background rounded-lg hover:bg-accent transition-colors disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 text-sm rounded-lg bg-gray-900 text-white hover:text-gray-900 border hover:bg-white hover:border-gray-900 transition-colors disabled:opacity-50 flex items-center gap-2"
           >
             {isLoading ? (
               <>
