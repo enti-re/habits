@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
-import { Calendar } from '@/components/Calendar';
 import { YearlyOverview } from '@/components/YearlyOverview';
-import { Insights } from '@/components/Insights';
 import { getHabit, deleteHabit, updateHabit } from '@/utils/storage';
 import type { Habit } from '@/types/habit';
 import { calculateStreak } from '@/utils/streakCalculator';
@@ -61,7 +59,6 @@ export function HabitDetail({ params }: { params: { id: string } }) {
       completedDates: updatedDates,
     };
 
-    updateHabit(updatedHabit);
     setHabit(updatedHabit);
     setStreak(calculateStreak(updatedDates));
   };
