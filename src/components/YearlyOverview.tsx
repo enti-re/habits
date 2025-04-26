@@ -17,9 +17,9 @@ export function YearlyOverview({ completedDates }: YearlyOverviewProps) {
     const daysInMonth = allDays.filter(day => day.getMonth() === i);
     return daysInMonth;
   });
-
+``
   return (
-    <div className="mt-8">
+    <div>
       <h2 className="text-lg font-medium mb-4">Yearly Overview</h2>
       <div className="grid grid-cols-12 gap-px bg-gray-200 dark:bg-gray-700 p-px rounded-lg overflow-hidden">
         {months.map((month, monthIndex) => (

@@ -155,8 +155,8 @@ export function HabitDetail({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2"> */}
+        {/* <div>
           <Calendar
             completedDates={habit.completedDates}
             onDateSelect={handleDateSelect}
@@ -165,11 +165,11 @@ export function HabitDetail({ params }: { params: { id: string } }) {
             completedDates={habit.completedDates}
             frequency={habit.frequency}
           />
-        </div>
+        </div> */}
         <div>
           <YearlyOverview completedDates={habit.completedDates} />
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

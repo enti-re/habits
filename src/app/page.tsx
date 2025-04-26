@@ -101,10 +101,10 @@ export default function Home() {
           <p className="text-muted-foreground text-sm mt-1">track your progress</p>
         </div>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <Link
             href="/habits/new"
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-foreground text-background border dark:bg-background dark:text-foreground rounded-lg bg-gray-900 text-white hover:text-white border-gray-900 hover:text-gray-900 hover:bg-white dark:hover:bg-accent transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-foreground text-background border dark:bg-background dark:text-foreground rounded-lg bg-black text-white hover:text-black border-gray-900 hover:text-gray-900 hover:bg-white dark:hover:bg-accent transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

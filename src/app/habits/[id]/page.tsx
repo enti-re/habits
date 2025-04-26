@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { parseISO, format, isValid, isSameDay, eachDayOfInterval, startOfYear } from 'date-fns';
+import { parseISO, format, isValid, isSameDay, eachDayOfInterval, startOfYear, endOfYear, endOfMonth, addWeeks, addDays } from 'date-fns';
 import type { Habit } from '@/types/habit';
 import DeleteHabitDialog from '@/components/DeleteHabitDialog';
+import { YearlyOverview } from '@/components/YearlyOverview';
 
 function getInsights(habit: Habit, days: Date[]) {
   const completionRate = getCompletionRate(habit, days);
@@ -128,9 +129,6 @@ export default function HabitDetails({ params }: { params: { id: string } }) {
     );
   }
 
-  const yearStart = startOfYear(new Date(year, 0, 1));
-  const yearEnd = new Date(year, 11, 31);
-  const daysInYear = eachDayOfInterval({ start: yearStart, end: yearEnd });
   const completedDates = habit.completedDates
     .map(d => {
       try {
@@ -247,47 +245,80 @@ export default function HabitDetails({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium text-foreground">Year Overview</h2>
-          <div className="flex items-center gap-2">
+      <div className="max-w-4xl mx-auto py-16">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="text-sm">{year}</div>
+          <div className="flex gap-4 text-xs">
             <button
               onClick={() => setYear(year - 1)}
-              className="px-3 py-1 text-sm border rounded hover:bg-accent dark:hover:bg-accent transition-colors"
+              className="text-muted-foreground hover:text-foreground"
             >
-              ←
+              {year - 1}
             </button>
-            <span className="text-sm font-medium text-foreground">{year}</span>
             <button
               onClick={() => setYear(year + 1)}
-              className="px-3 py-1 text-sm border rounded hover:bg-accent dark:hover:bg-accent transition-colors"
+              className="text-muted-foreground hover:text-foreground"
               disabled={year >= new Date().getFullYear()}
             >
-              →
+              {year + 1}
             </button>
           </div>
         </div>
 
-        <div className="border rounded-lg p-6 bg-white dark:bg-gray-900 dark:border-gray-800 overflow-x-auto">
-          <div className="min-w-[900px]">
-            <div className="grid grid-cols-53 gap-1 gap-x-4">
-              {daysInYear.map((day, i) => {
-                const isCompleted = completedDates.some(d => isSameDay(d, day));
-                const isFutureDate = day > new Date();
+        {/* Contribution graph */}
+        <div>
+          {/* Month labels */}
+          <div className="flex mb-2">
+            {Array.from({ length: 12 }, (_, i) => (
+              <div
+                key={i}
+                className="flex-1 text-[11px] text-muted-foreground"
+              >
+                {format(new Date(year, i), 'MMM')}
+              </div>
+            ))}
+          </div>
+
+          {/* Grid */}
+          <div className="flex gap-[3px]">
+            {/* Days grid */}
+            <div className="flex-1 grid grid-cols-[repeat(53,1fr)] gap-[3px]">
+              {Array.from({ length: 53 }, (_, weekIndex) => {
+                const weekStart = startOfYear(new Date(year, 0));
+                const week = addWeeks(weekStart, weekIndex);
+                const days = Array.from({ length: 7 }, (_, dayIndex) =>
+                  addDays(week, dayIndex)
+                );
+
                 return (
-                  <div
-                    key={i}
-                    className={`w-3.5 h-3.5 rounded-sm ${
-                      isFutureDate
-                        ? 'bg-transparent dark:border-gray-800'
-                        : isCompleted
-                        ? 'bg-gray-900 dark:bg-white'
-                        : 'bg-gray-100 dark:bg-gray-800'
-                    }`}
-                    title={`${format(day, 'MMM d, yyyy')}${
-                      isFutureDate ? ' - Future date' : isCompleted ? ' - Completed' : ''
-                    }`}
-                  />
+                  <div key={weekIndex} className="flex flex-col gap-[3px]">
+                    {days.map((day) => {
+                      const isCompleted = completedDates.some(d => isSameDay(d, day));
+                      const isFutureDate = day > new Date();
+                      const isThisYear = day.getFullYear() === year;
+                      
+                      if (!isThisYear) return <div key={day.toISOString()} className="h-[10px]" />;
+
+                      return (
+                        <div
+                          key={day.toISOString()}
+                          className={`
+                            h-[10px] w-[10px]
+                            ${isCompleted
+                              ? 'bg-gray-900 dark:bg-white'
+                              : isFutureDate
+                              ? 'bg-gray-50 dark:bg-gray-900'
+                              : 'bg-gray-100 dark:bg-gray-800'
+                            }
+                          `}
+                          title={`${format(day, 'MMM d, yyyy')}${
+                            isCompleted ? ' - Completed' : isFutureDate ? ' - Future date' : ' - Not completed'
+                          }`}
+                        />
+                      );
+                    })}
+                  </div>
                 );
               })}
             </div>
